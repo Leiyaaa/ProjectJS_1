@@ -1,0 +1,49 @@
+<script>
+    function getComputerChoice() {
+        const choices = ['Rock', 'Paper', 'Scissors'];
+        const randomIndex = Math.floor(Math.random() * choices.length);
+        return choices[randomIndex];
+    }
+
+    function getHumanChoice() {
+        let choice;
+        choice = prompt("Enter your choice (Rock, Paper, Scissors):");
+        return choice
+    }
+
+    const humanScore = 0;
+    const computerScore = 0;
+
+    function playRound(humanChoice, computerChoice) {
+        const humanChoiceLower = humanChoice.toLowerCase();
+        if (humanChoiceLower === computerChoice.toLowerCase()) {
+            return "It's a tie!";
+        } else if (
+            (humanChoiceLower === 'rock' && computerChoice.toLowerCase() === 'scissors') ||
+            (humanChoiceLower === 'paper' && computerChoice.toLowerCase() === 'rock') ||
+            (humanChoiceLower === 'scissors' && computerChoice.toLowerCase() === 'paper')
+        ) {
+            return "You win!";
+            humanScore++;
+        } else {
+            return "You lose!";
+            computerScore++;
+        }
+         
+    }
+
+    function playGame() {
+        
+        for (let i = 0; i<5; i++) {
+            const humanChoice = getHumanChoice();
+            const computerChoice = getComputerChoice();
+            const result = playRound(humanChoice, computerChoice);
+            console.log(`Round ${i + 1}: You chose ${humanChoice}, Computer chose ${computerChoice}. Result: ${result}`);
+        }
+    }
+
+    playGame();
+    
+
+        
+</script>
