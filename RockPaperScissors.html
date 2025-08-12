@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
 <script>
     function getComputerChoice() {
         const choices = ['Rock', 'Paper', 'Scissors'];
@@ -11,8 +20,8 @@
         return choice
     }
 
-    const humanScore = 0;
-    const computerScore = 0;
+    let humanScore = 0;
+    let computerScore = 0;
 
     function playRound(humanChoice, computerChoice) {
         const humanChoiceLower = humanChoice.toLowerCase();
@@ -23,27 +32,65 @@
             (humanChoiceLower === 'paper' && computerChoice.toLowerCase() === 'rock') ||
             (humanChoiceLower === 'scissors' && computerChoice.toLowerCase() === 'paper')
         ) {
-            return "You win!";
             humanScore++;
+            if (humanScore === 5 || computerScore === 5) {
+            }
+            return "You win!";
+
         } else {
-            return "You lose!";
             computerScore++;
+            if (humanScore === 5 || computerScore === 5) {
+            }
+            return "You lose!";
         }
-         
+
     }
 
-    function playGame() {
-        
-        for (let i = 0; i<5; i++) {
-            const humanChoice = getHumanChoice();
-            const computerChoice = getComputerChoice();
-            const result = playRound(humanChoice, computerChoice);
-            console.log(`Round ${i + 1}: You chose ${humanChoice}, Computer chose ${computerChoice}. Result: ${result}`);
+    const rock = document.createElement('button');
+    rock.textContent = 'Rock';
+    const paper = document.createElement('button');
+    paper.textContent = 'Paper';
+    const scissors = document.createElement('button');
+    scissors.textContent = 'Scissors';
+    document.body.append(rock, paper, scissors);
+
+    const message = document.createElement('div');
+    const scoreElement = document.createElement('div');
+    document.body.append(message, scoreElement);
+    updateScore();
+
+    function updateScore() {
+        scoreElement.textContent = `Human Score: ${humanScore}, Computer Score: ${computerScore}`;
+    }
+
+    function handleChoice(humanChoice) {
+        const computerChoice = getComputerChoice();
+        const result = playRound(humanChoice, computerChoice);
+        message.textContent = `You chose ${humanChoice}, computer chose ${computerChoice}. ${result}`;
+        updateScore();
+        finalGame();
+    }
+
+
+    rock.addEventListener('click', () => {handleChoice('Rock')});
+    paper.addEventListener('click', () => {handleChoice('Paper')});
+    scissors.addEventListener('click', () => {handleChoice('Scissors')});
+
+
+    function finalGame() {
+        if (humanScore === 5 || computerScore === 5) {
+            if (humanScore === 5) {
+                message.textContent = "Congratulations! You won the game!";
+            } else {
+                message.textContent = "Sorry, you lost the game.";
+            }
+            humanScore = 0;
+            computerScore = 0;
+            updateScore();
+            
         }
     }
 
-    playGame();
-    
-
-        
 </script>
+</body>
+</html>
